@@ -1,0 +1,15 @@
+h1 Histórico de #{@country1}
+
+table.table
+  thead.thead-dark
+    tr
+      th[scope="col"] Dia
+      th[scope="col"] Confirmados
+      th[scope="col"] Mortes
+      th[scope="col"] Recuperados
+  - @reports.each_with_index do |rep, index|
+    tr
+      td = I18n.l(rep.day)
+      td #{rep.confirmed} [ +#{@reports[index+1] && (@reports[index]&.confirmed - @reports[index+1].confirmed) } ]
+      td #{rep.deaths} [ +#{@reports[index+1]&.deaths && (@reports[index].deaths - @reports[index+1].deaths) } ]
+      td #{rep.recovery} [ +#{@reports[index+1]&.recovery && (@reports[index].recovery - @reports[index+1].recovery) } ]

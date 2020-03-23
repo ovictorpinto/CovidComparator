@@ -1,0 +1,135 @@
+<p id="notice"><%= notice %></p>
+
+<form>
+  <div class="form-row">
+    <div class="col">
+      <select id="select1" class="form-control" name="c1">
+        <% @avaialble_countries.each do |c| %>
+          <option value="<%= c.country %>"><%= c.country %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col">
+      <select id="select2" class="form-control select2" name="c2">
+        <% @avaialble_countries.each do |c| %>
+          <option value="<%= c.country %>"><%= c.country %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col">
+      <input class="btn btn-secondary" type="submit" value="Compare">
+    </div>
+  </div>
+</form>
+<br>
+
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">País</th>
+    <th scope="col" colspan="2"><%= @country1 %></th>
+    <th scope="col" colspan="2"><%= @country2 %></th>
+  </tr>
+  </thead>
+  <tr>
+    <td>População</td>
+    <td colspan="2"><%= number_to_human(@country1_population&.total, significant: false) %></td>
+    <td colspan="2"><%= number_to_human(@country2_population&.total, significant: false) %></td>
+  </tr>
+  <tr>
+    <td>Primeiro contaminado</td>
+    <td colspan="2"><%= I18n.l(@country1_first_confirmed&.day) %>
+      <a target="_blank" href="<%= "/daily_reports/1?c1=#{@country1}" %>" class="btn btn-sm btn-outline-secondary">Ver diários</a></td>
+    <td colspan="2"><%= I18n.l(@country2_first_confirmed&.day) %>
+      <a target="_blank" href="<%= "/daily_reports/1?c1=#{@country2}" %>" class="btn btn-sm btn-outline-secondary">Ver diários</a></td>
+  </tr>
+  <tr>
+    <td>Primeira morte</td>
+    <td colspan="2"><%= @country1_first_death&.day && I18n.l(@country1_first_death&.day) %></td>
+    <td colspan="2"><%= @country2_first_death&.day && I18n.l(@country2_first_death&.day) %></td>
+  </tr>
+  <tr>
+    <td rowspan="2">7 dias</td>
+    <td>Confirmados: <%= @country1_7_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country1_7_days_death&.confirmed, @country1_population&.total, @reference) %></td>
+    <td>Confirmados: <%= @country2_7_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country2_7_days_death&.confirmed, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td>Mortos: <%= @country1_7_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country1_7_days_death&.deaths, @country1_population&.total, @reference) %></td>
+    <td>Mortos: <%= @country2_7_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country2_7_days_death&.deaths, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td rowspan="2">14 dias</td>
+    <td>Confirmados: <%= @country1_14_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country1_14_days_death&.confirmed, @country1_population&.total, @reference) %></td>
+    <td>Confirmados: <%= @country2_14_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country2_14_days_death&.confirmed, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td>Mortos: <%= @country1_14_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country1_14_days_death&.deaths, @country1_population&.total, @reference) %></td>
+    <td>Mortos: <%= @country2_14_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country2_14_days_death&.deaths, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td rowspan="2">21 dias</td>
+    <td>Confirmados: <%= @country1_21_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country1_21_days_death&.confirmed, @country1_population&.total, @reference) %></td>
+    <td>Confirmados: <%= @country2_21_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country2_21_days_death&.confirmed, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td>Mortos: <%= @country1_21_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country1_21_days_death&.deaths, @country1_population&.total, @reference) %></td>
+    <td>Mortos: <%= @country2_21_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country2_21_days_death&.deaths, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td rowspan="2">30 dias</td>
+    <td>Confirmados: <%= @country1_30_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country1_30_days_death&.confirmed, @country1_population&.total, @reference) %></td>
+    <td>Confirmados: <%= @country2_30_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country2_30_days_death&.confirmed, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td>Mortos: <%= @country1_30_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country1_30_days_death&.deaths, @country1_population&.total, @reference) %></td>
+    <td>Mortos: <%= @country2_30_days_death&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country2_30_days_death&.deaths, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td rowspan="2">Último registro</td>
+    <td>(<%= I18n.l(@country1_last&.day) %>) Confirmados total: <%= @country1_last&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country1_last&.confirmed, @country1_population&.total, @reference) %></td>
+    <td>(<%= I18n.l(@country2_last&.day) %>) Total confirmados: <%= @country2_last&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country2_last&.confirmed, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tr>
+    <td>Total mortes: <%= @country1_last&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country1_last&.deaths, @country1_population&.total, @reference) %></td>
+    <td>Total mortes: <%= @country2_last&.deaths %></td>
+    <td>Por milhão:  <%= per_indice(@country2_last&.deaths, @country2_population&.total, @reference) %></td>
+  </tr>
+  <tfoot>
+  <tr>
+    <td colspan="5">Fonte:
+      <a href="https://databank.worldbank.org/reports.aspx?source=2&series=SP.POP.TOTL,SP.POP.0014.TO.ZS,SP.POP.1564.TO.ZS,SP.POP.65UP.TO.ZS,SP.POP.DPND.YG,SP.POP.DPND.OL,SP.DYN.CDRT.IN,SP.DYN.CBRT.IN#">
+        Population</a> and <a href="https://github.com/CSSEGISandData/COVID-19">Daily Reports</a></td>
+  </tr>
+  </tfoot>
+</table>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+  />
+<!-- Include Choices JavaScript (latest) -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<script>
+    new Choices('#select1');
+    new Choices('#select2');
+</script>
