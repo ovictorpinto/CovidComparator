@@ -11,7 +11,7 @@ class DailyReportsController < ApplicationController
   # GET /daily_reports/1.json
   def show
     @country1 = params[:c1]
-    @reports = DailyReport.where(:country => @country1).group(:country).group(:day).order(day: :desc)
+    @reports = DailyReport.select(:deaths).select(:confirmed).select(:recovery).where(:country => @country1).group(:country).group(:day).order(day: :desc)
   end
 
   # GET /daily_reports/new
