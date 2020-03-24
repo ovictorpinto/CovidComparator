@@ -48,13 +48,13 @@
     <td colspan="2"><%= @country1_first_death&.day && I18n.l(@country1_first_death&.day) %></td>
     <td colspan="2"><%= @country2_first_death&.day && I18n.l(@country2_first_death&.day) %></td>
   </tr>
-<!--  <tr>-->
-<!--    <td rowspan="2">7 dias</td>-->
-<!--    <td>Confirmados: <%#= @country1_7_days_death&.confirmed %></td>-->
-<!--    <td>Por milhão:  <%#= per_indice(@country1_7_days_death&.confirmed, @country1_population&.total, @reference) %></td>-->
-<!--    <td>Confirmados: <%#= @country2_7_days_death&.confirmed %></td>-->
-<!--    <td>Por milhão:  <%#= per_indice(@country2_7_days_death&.confirmed, @country2_population&.total, @reference) %></td>-->
-<!--  </tr>-->
+  <tr>
+    <td rowspan="2">7 dias</td>
+    <td>Confirmados: <%= @country1_7_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country1_7_days_death&.confirmed, @country1_population&.total, @reference) %></td>
+    <td>Confirmados: <%= @country2_7_days_death&.confirmed %></td>
+    <td>Por milhão:  <%= per_indice(@country2_7_days_death&.confirmed, @country2_population&.total, @reference) %></td>
+  </tr>
 <!--  <tr>-->
 <!--    <td>Mortos: <%#= @country1_7_days_death&.deaths %></td>-->
 <!--    <td>Por milhão:  <%#= per_indice(@country1_7_days_death&.deaths, @country1_population&.total, @reference) %></td>-->

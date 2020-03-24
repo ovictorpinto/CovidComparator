@@ -11,7 +11,7 @@ class DailyReportsController < ApplicationController
   # GET /daily_reports/1.json
   def show
     @country1 = params[:c1]
-    @reports = DailyReport.select(:deaths).select(:confirmed).select(:recovery).where(:country => @country1).group(:country).group(:day).order(day: :desc)
+    @reports = DailyReport.select(:day, :deaths, :confirmed, :recovery).where(:country => @country1).group(:country).group(:day).order(day: :desc)
   end
 
   # GET /daily_reports/new
@@ -36,11 +36,11 @@ class DailyReportsController < ApplicationController
     @country1_first_death = DailyReport.where(:country => @country1).where('deaths > 0').order(:day).first
     @country2_first_death = DailyReport.where(:country => @country2).where('deaths > 0').order(:day).first
     @country1_7_days_death = DailyReport.new
-    # @country1_7_days_death = DailyReport
-    #                              .where(:country => @country1)
-    #                              .sum(:confirmed)
-    #                              .select(:confirmed).where(:day => @country1_first_confirmed.day + 7).group(:country).group(:day).first
-    # @country2_7_days_death = DailyReport.where(:country => @country2).where(:day => @country2_first_confirmed.day + 7).group(:country).group(:day).first
+    @country1_7_days_death = DailyReport
+                                 .select(:day, :deaths, :confirmed, :recovery)
+                                 .where(:country => @country1)
+                                 .select(:confirmed).where(:day => @country1_first_confirmed.day + 7).group(:country).group(:day).first
+    @country2_7_days_death = DailyReport.select(:day, :deaths, :confirmed, :recovery).where(:country => @country2).where(:day => @country2_first_confirmed.day + 7).group(:country).group(:day).first
     # @country1_14_days_death = DailyReport.where(:country => @country1).where(:day => @country1_first_confirmed.day + 14).group(:country).group(:day).first
     # @country2_14_days_death = DailyReport.where(:country => @country2).where(:day => @country2_first_confirmed.day + 14).group(:country).group(:day).first
     # @country1_21_days_death = DailyReport.where(:country => @country1).where(:day => @country1_first_confirmed.day + 21).group(:country).group(:day).first
@@ -49,7 +49,6 @@ class DailyReportsController < ApplicationController
     # @country2_30_days_death = DailyReport.where(:country => @country2).where(:day => @country2_first_confirmed.day + 30).group(:country).group(:day).first
     # @country1_last = DailyReport.where(:country => @country1).group(:country).group(:day).order(:day).last
     # @country2_last = DailyReport.where(:country => @country2).group(:country).group(:day).order(:day).last
-    @country2_7_days_death =  DailyReport.new
     @country1_14_days_death = DailyReport.new
     @country2_14_days_death = DailyReport.new
     @country1_21_days_death = DailyReport.new

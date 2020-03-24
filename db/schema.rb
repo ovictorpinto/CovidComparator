@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_22_162418) do
+ActiveRecord::Schema.define(version: 2020_03_23_231541) do
 
   create_table "countries", force: :cascade do |t|
     t.date "dtFirstConfirmed"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_162418) do
 
   create_table "populations", force: :cascade do |t|
     t.string "country"
-    t.integer "total"
+    t.integer "total", limit: 8
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
