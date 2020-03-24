@@ -56,8 +56,8 @@ class DailyReportsController < ApplicationController
     @country2_21_days_death = DailyReport.new
     @country1_30_days_death = DailyReport.new
     @country2_30_days_death = DailyReport.new
-    @country1_last = DailyReport.where(:country => @country1).group(:country).group(:day).order(:day).last
-    @country2_last = DailyReport.where(:country => @country2).group(:country).group(:day).order(:day).last
+    @country1_last = DailyReport.new
+    @country2_last = DailyReport.new
     @country1_population = Population.where(:country => @country1).first
     @country2_population = Population.where(:country => @country2).first
 
