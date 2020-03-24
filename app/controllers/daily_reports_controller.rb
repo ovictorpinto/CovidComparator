@@ -37,11 +37,11 @@ class DailyReportsController < ApplicationController
     @country2_first_death = DailyReport.where(:country => @country2).where('deaths > 0').order(:day).first
     @country1_7_days_death = DailyReport.new
     @country1_7_days_death = DailyReport
-                                 .select("day, sum(deaths) as deaths, sum(confirmed) as confirmed, sum(recovery) as recovery")
+                                 .select("day, sum(deaths) as deaths, sum(confirmed) as confirmed")
                                  .where(:country => @country1)
                                  .select(:confirmed).where(:day => @country1_first_confirmed.day + 7).group(:country).group(:day).first
     @country2_7_days_death = DailyReport
-                                 .select("day, sum(deaths) as deaths, sum(confirmed) as confirmed, sum(recovery) as recovery")
+                                 .select("day, sum(deaths) as deaths, sum(confirmed) as confirmed")
                                  .where(:country => @country2).where(:day => @country2_first_confirmed.day + 7).group(:country).group(:day).first
     # @country1_14_days_death = DailyReport.where(:country => @country1).where(:day => @country1_first_confirmed.day + 14).group(:country).group(:day).first
     # @country2_14_days_death = DailyReport.where(:country => @country2).where(:day => @country2_first_confirmed.day + 14).group(:country).group(:day).first
